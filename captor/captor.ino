@@ -10,7 +10,9 @@
 #include <StackList.h>
 #include "defs.h"
 
+#define VBAT PIN_A0
 int Address = 0x69; // device address of SPS30 (fixed).
+int si7021Addr = 0x40;
 byte w1, w2, w3;
 byte ND[60];
 long tmp;
@@ -21,6 +23,7 @@ unsigned long new_value = 0;
 TinyGPSPlus gps;
 SdFat SD(&SPI1);
 #define SD_CS_PIN SS1
+
 File myFile;
 
 // BLE Service
@@ -108,6 +111,13 @@ void setup() {
   // Set up and start advertising
   startAdv();
   delay(2500);
+
+  pinMode(VBAT, INPUT);
+  float measuredvbat = analogRead(VBAT);
+  measuredvbat *= 2;    // we divided by 2, so multiply back
+  measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
+  measuredvbat /= 1024; // convert to voltage
+  Serial.print("VBat: " ); Serial.println(measuredvbat);
 }
 
 void loop() {
@@ -135,12 +145,14 @@ void sendData() {
             Serial.print(data.date + ";");
             Serial.print(data.time + "+00;");
             Serial.print(data.pms + ";");
+            Serial.print(data.humidity + ";");
+            Serial.print(data.temperature + ";");
             String lat = String(data.lattitude, 6);
             String lng = String(data.longitude,6);
-            Serial.print("lt="+lat);
-            Serial.print("lg="+lng);
+            Serial.print("lt="+lat+";");
+            Serial.print("lg="+lng+";");
             Serial.println(data.millis);
-            myFile.print(data.date + ";" + data.time + "+00;" + data.pms + ";");
+            myFile.print(data.date +";"+data.time+"+00;"+data.pms +";"+data.humidity+";"+data.temperature+";");
             myFile.print("lt="+lat+";");
             myFile.print("lg="+lng+";");
             myFile.println(data.millis);
@@ -153,6 +165,8 @@ void sendData() {
               bleuart.print(data.date);
               bleuart.print(data.time+"+00");
               bleuart.print(data.pms);
+              bleuart.print(data.humidity);
+              bleuart.print(data.temperature);
               bleuart.print("lt="+lat);
               bleuart.print("lg="+lng);
               bleuart.print(milli);

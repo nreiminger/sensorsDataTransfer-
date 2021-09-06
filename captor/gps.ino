@@ -43,13 +43,12 @@ void sensorGPS(Value* data){
     date = "0/0/2000";
     time = "0:0:0";
   }
-    
   data->date += date;
   data->time += time;  
   data->pms += sensorSPS30();
   data->lattitude = lt;
   data->longitude = lg;
+  data->humidity += getValue(humTemp(), ';', 0);
+  data->temperature += getValue(humTemp(), ';', 1);
   data->millis += millis();
-
-  
 }

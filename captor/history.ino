@@ -6,26 +6,25 @@ void readLastData() {
   int millis_suiv;
   int diffMilli=0;
   String mi;
-  //instanciation de la pile qui va acceullir toutes les mesures
   if (myFile) {
     //envoie de la première données 
     int posAvantDernierChar = myFile.size() -3;  
     String data = readNextLine(posAvantDernierChar); //read last line
-    mi = getValue(data, ';', 5);
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
           Serial.print(String(getValue(data, ';', i))+";");
           bleuart.print(String(getValue(data, ';', i)));        
     }
     bleuart.print("m=0");
+    mi = getValue(data, ';', 7);
     millis_prec = getValue(mi,'=', 1).toInt();
     while (myFile.available() && reading) {
       String m = "m=";
       //lecture de la ligne courante, la fin de la ligne est marqué par '\n'
       String data = readNextLine(myFile.position()-3);
-      mi = getValue(data, ';', 5);
+      mi = getValue(data, ';', 7);
       millis_suiv = getValue(mi,'=', 1).toInt();
       if(millis_prec > millis_suiv && myFile.position() >= 0 && data != "deconnexion"){
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
           Serial.print(String(getValue(data, ';', i))+";");
           bleuart.print(String(getValue(data, ';', i)));
         }
