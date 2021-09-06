@@ -6,4 +6,6 @@ struct Value
   double lattitude;
   double longitude;
   String millis="m="; 
+  String humidity="hum=";
+  String temperature="t=";
 };
