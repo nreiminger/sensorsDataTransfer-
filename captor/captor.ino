@@ -7,7 +7,6 @@
 #include <bluefruit.h>
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
-#include <StackList.h>
 #include "defs.h"
 
 #define VBAT PIN_A0
