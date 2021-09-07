@@ -3,7 +3,7 @@
 
 
 
-![diagramme](https://github.com/nreiminger/sensorsDataTransfer/blob/main/images/diagram.png)
+![diagramme](https://github.com/nreiminger/sensorsDataTransfer/blob/main/images/dolphin_diagram.png)
 
 
 
