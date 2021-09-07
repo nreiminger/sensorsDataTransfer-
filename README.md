@@ -37,5 +37,16 @@ Pour renversé le fichier, nous utilisons une List, LIFO (last in first out), ai
 
 NB : du fait que l'on ne puisse pas envoyé beaucoup de bits en même temps, pour une mesure, chaque valeur est envoyées séparemant. Pour que le client puisse reconnaitre la donnée qu'il a recu j'ai indiqué un préfixe permettant de les différanciers.
 
+|prefixe| valeur|
+|:---:|:---:|
+|d=|date|
+|h=|heure|
+|pms=|valeurs des polluant (pm1**A**pm25**A**pm10) [**A** represente le séparateur]|
+|t=|temperature|
+|hum|humidité|
+|lat=| latitude|
+|lng=| longitude|
+|m=| millis() => utile pour calculer la date et heure de la mesure si le GPS n'avait aucun signal|
+
 ## Pour la V2
    Un capteur de CO2 va etre placer sur la carte, on va devoir trouvé une facon de derterminer si le capteur de CO2 est integrer sur la carte.
