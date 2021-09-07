@@ -10,7 +10,7 @@
 ## Arduino :
   ## Les fichiers
   - La carte arduino a une carte SD. Cette carte arduino aura 2 fichiers. 
-    - data : contient les données des 7 derniers jours
+    - data : contient les données de meusre
     - config : contient les configurations pour le fonctionnement du dispositif (lecture du fichier )
       - l'id du capteur, pour les tests c'est le dpolhin 7 qui a été testé
       - l'interval de temps entre chaque mesure, en milliseconde, cette valeur indique le temps d'attente entre chaque mesure. 
@@ -37,20 +37,5 @@ Pour renversé le fichier, nous utilisons une List, LIFO (last in first out), ai
 
 NB : du fait que l'on ne puisse pas envoyé beaucoup de bits en même temps, pour une mesure, chaque valeur est envoyées séparemant. Pour que le client puisse reconnaitre la donnée qu'il a recu j'ai indiqué un préfixe permettant de les différanciers.
 
-
-## Application android : 
-Insertion dans la base de données :
-  - A l'allumage de l'application, lorsque le téléphone se connecte à la carte Arduino la valeur de epoch() (date courante) est notée dans les sharePréfences, cette donnée va permettre de recalculer la date d'une mesure si la date fourni par le GPS est invalide. 
-  - A la reception de chaque composante, il sont placé dans un objet permettant de les saugarder jusqu'a l'envoye de la requete, qui ce passe au moment de la reception de la valeur millis. La seul variable non envoyé, la valeur du millis, préfixé par "m=" sera utilsé pour recalculé, a l'aide de la date courante enregistrer dans le localStorage, la date si celle ci n'est pas correct, ou quel n'est pas vide. Si cette valeur est null cela signifie que nous somme directement connecté avec le téléphone donc nous utiliserons la date courante du téléphone.
-
-----------------
-
-## Suppression des données en dehors de la plage de la semaine ( je ne sais pas encore comment proceder puisque à l'intérieur les valeurs du gps concernant la date/heure sont invalide) 
-   Un processus va permettre de supprimer les données du fichier `data` si TS(data) - TS(log) > 7. 
-   Pour la suppression on pourrai utilser un fichier temporaire
-   - Recopier toutes les données comprises dans cette plage nommée `temp`
-   - Supprimer le fichier `data`
-   - Renommer le fichier `temp` en `data`
-
- ## Pour la V2
+## Pour la V2
    Un capteur de CO2 va etre placer sur la carte, on va devoir trouvé une facon de derterminer si le capteur de CO2 est integrer sur la carte.
